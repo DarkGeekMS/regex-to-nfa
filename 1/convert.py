@@ -1,7 +1,7 @@
 import re
 import sys
 from src.build_nfa import transform
-from src.visualize_nfa import visualize
+#from src.visualize_nfa import visualize
 
 
 # global constant regex
@@ -42,7 +42,7 @@ def convert(regex):
     # transform regex to nfa
     nfa = transform(regex)
     # visualize nfa
-    visualize(nfa)
+    #visualize(nfa)
 
 
 if __name__ == "__main__":
