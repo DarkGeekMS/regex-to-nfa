@@ -205,7 +205,7 @@ def transform(regex):
                entry.update(({k : ("S" + str(v))})) 
         results.update({("S"+ str(key)) : entry})
     #print(results)
-    with open('data.json', 'w') as fp:
+    with open('out/nfa.json', 'w') as fp:
         json.dump(results, fp)
     return results
 
