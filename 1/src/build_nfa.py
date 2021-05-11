@@ -197,7 +197,13 @@ def transform(regex):
     results = {}
     results.update({"startingState" : ("S" + str(prev_start))})
     for key , value in states.items():
-        results.update({("S"+ str(key)) : value})
+        entry = {}
+        for k,v in value.items():
+            if k == "isTerminatingState":
+                entry.update({k : v})
+            else:
+               entry.update(({k : ("S" + str(v))})) 
+        results.update({("S"+ str(key)) : entry})
     #print(results)
     with open('data.json', 'w') as fp:
         json.dump(results, fp)
