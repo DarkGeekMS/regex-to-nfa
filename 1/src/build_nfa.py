@@ -1,5 +1,5 @@
-# operations will be as following : and : 0 , or: 1 
 import collections
+import json
 
 def solveBracket(regex, end_state, states):
     b_start = end_state + 1
@@ -51,7 +51,7 @@ def solveBracket(regex, end_state, states):
             b_start = b_end
         elif regex[index] == '*':
             b_end += 1
-            states[b_start].update({"ε          " : b_char, "ε           " : b_end })
+            states[b_start].update({" ε " : b_char, "  ε  " : b_end })
             states[b_char].update({"ε            " : b_end})
             states.update( { b_end : { "isTerminatingState": False} })
             b_start = b_end
@@ -105,7 +105,7 @@ def oring(index , regex, states , end_state):
 
         elif regex[index] == '*':
             oring_end += 1
-            states[oring_start].update({"ε      " : oring_prev_char, "ε       " : oring_end })
+            states[oring_start].update({"   ε   " : oring_prev_char, "     ε     " : oring_end })
             states[oring_prev_char].update({"ε        " : oring_end})
             states.update( { oring_end : { "isTerminatingState": False} })
             oring_start = oring_end
@@ -163,7 +163,7 @@ def transform(regex):
         # in case of oring 
         elif regex[i] == '|':
             i, prev, start,end = oring(i+1, regex, states , end_state)
-            states.update( { end+1 : { "isTerminatingState": False, "ε" : prev_start , "ε " : prev } })
+            states.update( { end+1 : { "isTerminatingState": False, "     ε     " : prev_start , "      ε       " : prev } })
             states.update( { end+2 : { "isTerminatingState": False} })
             states[end].update({"ε" : end+2})
             states[end_state].update({"ε" : end+2})
@@ -194,7 +194,14 @@ def transform(regex):
     for k, v in states.items(): print(k, v)
     # loop over states and save them with the given example to json file
     # return that json file
-    return None
+    results = {}
+    results.update({"startingState" : ("S" + str(prev_start))})
+    for key , value in states.items():
+        results.update({("S"+ str(key)) : value})
+    #print(results)
+    with open('data.json', 'w') as fp:
+        json.dump(results, fp)
+    return results
 
 
 """
