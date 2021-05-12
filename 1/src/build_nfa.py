@@ -1,6 +1,7 @@
 import collections
 import json
 
+
 def solveBracket(regex, end_state, states):
     """
         This function used to solve the regex inside a bracket and save the new states to the current available states
@@ -85,6 +86,7 @@ def solveBracket(regex, end_state, states):
     # return information about the states added by this function when it's called     
     return b_prev, b_start, b_end
 
+
 def oring(index , regex, states , end_state):
     """
         This function used to solve the regex after or operation and save the new states to the current available states
@@ -160,6 +162,7 @@ def oring(index , regex, states , end_state):
         index += 1        
     # return information about the states added by this function when it's called     
     return len(regex), oring_prev, oring_start, oring_end
+
 
 def transform(regex):
     # create initial state
