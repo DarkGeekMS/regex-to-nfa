@@ -18,7 +18,7 @@ def solveBracket(regex, end_state, states):
     index = 0
     while(index < len(regex)):
         # in case of oring operation found 
-        if regex[index] == '|':
+        if regex[index] == '|' or regex[index] == '+':
             # solve it using oring function (function description below) 
             index, prev, start,end = oring(index+1, regex, states , b_end)
             # create new 2 states to connect the oring branches
@@ -103,7 +103,7 @@ def oring(index , regex, states , end_state):
     # loop over the regex
     while(index < len(regex)):
         # in case of oring so the regex after oring operation was solved so return its states
-        if regex[index] == '|':
+        if regex[index] == '|' or regex[index] == '+':
             return (index), oring_prev, oring_start, oring_end
         # in case of special character found
         elif regex[index] == '\\':
@@ -214,7 +214,7 @@ def transform(regex):
             # continue looping over the regex after that bracket
             i = i + len(sub_regex) + 2
         # in case of oring 
-        elif regex[i] == '|':
+        elif regex[i] == '|' or regex[i] == '+':
             # solve it using oring function (function description above) 
             i, prev, start,end = oring(i+1, regex, states , end_state)
             # create new 2 states to connect the oring branches
