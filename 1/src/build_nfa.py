@@ -265,5 +265,5 @@ def transform(regex):
                entry.update(({k : ("S" + str(v))})) 
         results.update({("S"+ str(key)) : entry})
     with open('out/nfa.json', 'w') as fp:
-        json.dump(results, fp)
+        json.dump(results, fp, ensure_ascii=False)
     return results
