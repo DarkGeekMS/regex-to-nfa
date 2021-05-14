@@ -2,6 +2,11 @@
 
 ## Usage
 
+-   Install dependencies :
+    ```bash
+    pip install -r requirements.txt
+    ```
+
 -   Run tool :
     ```bash
     python convert.py "REGEX"
