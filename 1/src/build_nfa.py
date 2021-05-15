@@ -55,7 +55,7 @@ def solveBracket(regex, end_state, states):
             b_start = b_end
             b_char = prev
             # update the current index to start after the solved bracket
-            index = index + len(sub_regex) + 1
+            index = index + len(sub_regex) + 2
         # in case of special character found
         elif regex[index] == '\\':
             # read the charactr after the \ and make a normal transition from the current state to new one using that character
@@ -65,6 +65,8 @@ def solveBracket(regex, end_state, states):
             states.update( { b_end : { "isTerminatingState": False } })
             b_char = b_start
             b_start = b_end
+            # increment the regex looping index     
+            index += 1
         # in case of partitioning found
         elif regex[index] == '*':
             # create two states using tompthons rules as described in the slides
@@ -73,6 +75,8 @@ def solveBracket(regex, end_state, states):
             states[b_char].update({"ε            " : b_end})
             states.update( { b_end : { "isTerminatingState": False} })
             b_start = b_end
+            # increment the regex looping index     
+            index += 1
         # in case of anding
         else:
             # make new state and new transaction from the current state to the new one using that char in the regex
@@ -81,8 +85,8 @@ def solveBracket(regex, end_state, states):
             states.update( { b_end : { "isTerminatingState": False } })
             b_char = b_start
             b_start = b_end    
-        # increment the regex looping index     
-        index += 1          
+            # increment the regex looping index     
+            index += 1          
     # return information about the states added by this function when it's called     
     return b_prev, b_start, b_end
 
@@ -104,7 +108,7 @@ def oring(index , regex, states , end_state):
     while(index < len(regex)):
         # in case of oring so the regex after oring operation was solved so return its states
         if regex[index] == '|' or regex[index] == '+':
-            return (index), oring_prev, oring_start, oring_end
+            return index, oring_prev, oring_start, oring_end
         # in case of special character found
         elif regex[index] == '\\':
             # take the next character after \ 
